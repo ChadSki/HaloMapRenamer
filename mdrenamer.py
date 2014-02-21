@@ -129,17 +129,12 @@ if __name__ == '__main__':
     parser.add_argument('input_map', help='Path to the Halo mapfile to rename.')
     parser.add_argument('mod_name', help='User friendly name of the mod. Must be <= 13 characters. This is the name that shows in the map selection menu in-game.')
     parser.add_argument('short_name', help='Internal name of the mod, and the new filename. Must be all lowercase and >= 1 character(s).')
-    parser.add_argument('build_number', help='The build number of the mod which is also used in the outputting filename. This should be increased before any sort of public or private distribution. Must be an integer >= 1.')
+    parser.add_argument('build_number', type=int help='The build number of the mod which is also used in the outputting filename. This should be increased before any sort of public or private distribution. Must be an integer >= 1.')
     parser.add_argument('output_directory', nargs='?', help='Directory to output the new MD renamed map in. This is optional and defaults to the directory <input_map> is in.')
     args = parser.parse_args()
 
     if args.output_directory == None:
         args.output_directory = os.path.dirname(args.input_map)
-
-    try:
-        args.build_number = int(args.build_number)
-    except ValueError:
-        raise Exception("Build number is not a valid number")
 
     new_filename = "%s_%d" % (args.short_name, args.build_number)
     output_path = os.path.join(args.output_directory, new_filename + ".map")
