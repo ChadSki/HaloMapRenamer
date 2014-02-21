@@ -68,7 +68,7 @@ def md_rename_file(input_map, output_path, new_filename, mod_name):
                 yield curr_offset
 
     def update_map_names(offset):
-        """Given """
+        """Given the offset of '...\\mp_map_list', updates the map names."""
         map_names_offset = read_uint32(offset + 0x14) - map_magic + 0x1B0
 
         def replace_wide_name(offset, old_name, new_name):
@@ -82,7 +82,7 @@ def md_rename_file(input_map, output_path, new_filename, mod_name):
         replace_wide_name(map_names_offset + 0x1A0, "Gephyrophobia",    mod_name)
 
     def update_map_descriptions(offset):
-        """Given """
+        """Given the offset of '...\\map_data', updates the map descriptions."""
         map_descr_offset = read_uint32(offset + 0x14) - map_magic + 0x19C
 
         originalBloodgulchBytes = bytes([
