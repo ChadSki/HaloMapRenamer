@@ -54,19 +54,6 @@ def md_rename_file(input_map, output_path, new_filename, mod_name):
         """Reads a little-endian int32 from the specified offset."""
         return struct.unpack('<I', read_bytes(offset, 0x4))[0]
 
-    def filter_tags_by_name(index_entry_offsets, name, skip_ustr=True):
-        """Yields each tag which has the specified name. Optionally skips ustr tags."""
-
-        for curr_offset in index_entry_offsets:
-            if skip_ustr:
-                # skipping tags of class ustr
-                if read_bytes(curr_offset, 0x4) != b'rtsu':
-                    continue
-
-            name_offset = read_uint32(curr_offset + 0x10) - map_magic
-            if has_bytes(name_offset, name):
-                yield curr_offset
-
     def update_map_names(offset):
         """Given the offset of '...\\mp_map_list', updates the map names."""
         map_names_offset = read_uint32(offset + 0x14) - map_magic + 0x1B0
@@ -121,13 +108,20 @@ def md_rename_file(input_map, output_path, new_filename, mod_name):
     # write the new internal name
     clear_and_write_bytes(0x20, 0xF, new_filename.encode('ascii'))
 
-    # update multiplayer map names
-    for tag in filter_tags_by_name(index_entry_offsets, b'ui\\shell\\main_menu\\mp_map_list'):
-        update_map_names(tag)
 
-    # update multiplayer map descriptions
-    for tag in filter_tags_by_name(index_entry_offsets, b'ui\\shell\\main_menu\\multiplayer_type_select\\mp_map_select\\map_data'):
-        update_map_descriptions(tag)
+    for curr_offset in index_entry_offsets:
+
+        # skipping tags of class ustr
+        if read_bytes(curr_offset, 0x4) != b'rtsu':
+            continue
+
+        name_offset = read_uint32(curr_offset + 0x10) - map_magic
+
+        if has_bytes(name_offset, b'ui\\shell\\main_menu\\mp_map_list'):
+            update_map_names(curr_offset)
+
+        elif has_bytes(name_offset, b'ui\\shell\\main_menu\\multiplayer_type_select\\mp_map_select\\map_data'):
+            update_map_descriptions(curr_offset)
 
     # save under a new filename
     with open(output_path, "wb") as outputFile:
