@@ -89,8 +89,6 @@ def md_rename_file(input_map, output_path, new_filename, mod_name):
         clear_and_write_bytes(map_descr_offset + 0x740, 0x64,   "Modded".encode("utf-16le"))
 
 
-    ## Do the work!
-
     # process the map header
     game_version = read_uint32(0x4)
     index_header_offset = read_uint32(0x10)
@@ -108,9 +106,7 @@ def md_rename_file(input_map, output_path, new_filename, mod_name):
     # write the new internal name
     clear_and_write_bytes(0x20, 0xF, new_filename.encode('ascii'))
 
-
     for curr_offset in index_entry_offsets:
-
         # skipping tags of class ustr
         if read_bytes(curr_offset, 0x4) != b'rtsu':
             continue
@@ -137,46 +133,25 @@ if __name__ == '__main__':
     parser.add_argument('output_directory', nargs='?', help='Directory to output the new MD renamed map in. This is optional and defaults to the directory <input_map> is in.')
     args = parser.parse_args()
 
-    ## validate input
-
     if args.output_directory == None:
         args.output_directory = os.path.dirname(args.input_map)
 
-    if not os.path.exists(args.input_map):
-        raise Exception("%s does not exist" % args.input_map)
-
-    if not args.input_map.endswith(".map"):
-        raise Exception("%s is not a .map file" % args.input_map)
-
-    if os.path.isdir(args.input_map):
-        raise Exception("%s is a directory.. which is not good" % args.input_map)
-
     try:
-        buildNumber = int(args.build_number)
+        args.build_number = int(args.build_number)
     except ValueError:
         raise Exception("Build number is not a valid number")
 
-    if buildNumber <= 0:
-        raise Exception("Build number is too small")
-
-    if len(args.short_name) == 0:
-        raise Exception("Short name cannot be empty")
-
-    if len(args.mod_name) > 13:
-        raise Exception("Mod name must be less than 13 characters")
-
-    if len(args.mod_name) == 0:
-        raise Exception("Mod name must be greater than 0 characters")
-
-    new_filename = "%s_%d" % (args.short_name, buildNumber)
-    if len(new_filename) > 13:
-        raise Exception("Map name '%s' is too long. Try shortening the short name" % new_filename)
-
-    if new_filename.lower() != new_filename:
-        raise Exception("Map name '%s' has capital letter. The short name must be all lowercase" % new_filename)
-
+    new_filename = "%s_%d" % (args.short_name, args.build_number)
     output_path = os.path.join(args.output_directory, new_filename + ".map")
-    if os.path.exists(output_path):
-        raise Exception("Map already exists at %s ..aborting for safety.." % output_path)
+
+    ## validate input
+    if not os.path.exists(args.input_map):  raise Exception("%s does not exist" % args.input_map)
+    if not args.input_map.endswith(".map"): raise Exception("%s is not a .map file" % args.input_map)
+    if os.path.isdir(args.input_map):       raise Exception("%s is a directory.. which is not good" % args.input_map)
+    if args.build_number <= 0:              raise Exception("Build number is too small")
+    if len(args.mod_name) > 13:             raise Exception("Mod name must be less than 13 characters")
+    if len(new_filename) > 13:              raise Exception("Map name '%s' is too long. Try shortening the short name" % new_filename)
+    if short_name.lower() != short_name:    raise Exception("Map name '%s' has capital letter. The short name must be all lowercase" % short_name)
+    if os.path.exists(output_path):         raise Exception("Map already exists at %s ..aborting for safety.." % output_path)
 
     md_rename_file(args.input_map, output_path, new_filename, args.mod_name)
