@@ -1,3 +1,6 @@
+#Region ;**** Directives created by AutoIt3Wrapper_GUI ****
+#AutoIt3Wrapper_Icon=icon.ico
+#EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #include <ButtonConstants.au3>
 #include <EditConstants.au3>
 #include <GUIConstantsEx.au3>

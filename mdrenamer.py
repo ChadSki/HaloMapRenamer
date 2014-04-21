@@ -164,6 +164,7 @@ if __name__ == '__main__':
 
         else:
             md_rename_file(args.input_map, output_path, new_filename, args.mod_name)
+            print("Successfully renamed to %s" % new_filename + ".map")
 
     finally:
         # for au3 GUI post mortem
