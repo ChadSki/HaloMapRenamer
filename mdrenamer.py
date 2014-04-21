@@ -94,7 +94,7 @@ def md_rename_file(input_map, output_path, new_filename, mod_name):
     index_header_offset = read_uint32(0x10)
 
     if game_version != 7:
-        raise Exception('This is not a valid (version 7) full-version map!')
+        print('This is not a valid (version 7) full-version map!')
 
     # process the index header
     index_offset = read_uint32(index_header_offset)
@@ -131,38 +131,41 @@ if __name__ == '__main__':
     parser.add_argument('short_name', help='Internal name of the mod, and the new filename. Must be all lowercase and >= 1 character(s).')
     parser.add_argument('build_number', type=int, help='The build number of the mod which is also used in the outputting filename. This should be increased before any sort of public or private distribution. Must be an integer >= 1.')
     parser.add_argument('output_directory', nargs='?', help='Directory to output the new MD renamed map in. This is optional and defaults to the directory <input_map> is in.')
-    args = parser.parse_args()
 
-    if args.output_directory == None:
-        args.output_directory = os.path.dirname(args.input_map)
+    try:
+        args = parser.parse_args()
 
-    new_filename = "%s_%d" % (args.short_name, args.build_number)
-    output_path = os.path.join(args.output_directory, new_filename + ".map")
+        if args.output_directory == None:
+            args.output_directory = os.path.dirname(args.input_map)
 
-    ## validate input
-    if not os.path.exists(args.input_map):
-        raise Exception("%s does not exist" % args.input_map)
+        new_filename = "%s_%d" % (args.short_name, args.build_number)
+        output_path = os.path.join(args.output_directory, new_filename + ".map")
 
-    elif not args.input_map.endswith(".map"):
-        raise Exception("%s is not a .map file" % args.input_map)
+        if not os.path.exists(args.input_map) or not args.input_map.endswith(".map"):
+            print("%s is not a .map file" % args.input_map)
 
-    elif os.path.isdir(args.input_map):
-        raise Exception("%s is a directory.. which is not good" % args.input_map)
+        elif os.path.isdir(args.input_map):
+            print("%s is a directory.. which is not good" % args.input_map)
 
-    elif args.build_number <= 0:
-        raise Exception("Build number is too small")
+        elif args.build_number <= 0:
+            print("Build number is too small")
 
-    elif len(args.mod_name) > 13:
-        raise Exception("Mod name must be less than 13 characters")
+        elif len(args.mod_name) > 13:
+            print("Mod name must be less than 13 characters")
 
-    elif len(new_filename) > 13:
-        raise Exception("Map name '%s' is too long. Try shortening the short name" % new_filename)
+        elif len(new_filename) > 13:
+            print("Map name '%s' is too long. Try shortening the short name" % new_filename)
 
-    elif short_name.lower() != short_name:
-        raise Exception("Map name '%s' has capital letter. The short name must be all lowercase" % short_name)
+        elif args.short_name.lower() != args.short_name:
+            print("Map name '%s' has capital letter. The short name must be all lowercase" % args.short_name)
 
-    elif os.path.exists(output_path):
-        raise Exception("Map already exists at %s ..aborting for safety.." % output_path)
+        elif os.path.exists(output_path):
+            print("Map already exists at %s ..aborting for safety.." % output_path)
 
+        else:
+            md_rename_file(args.input_map, output_path, new_filename, args.mod_name)
 
-    md_rename_file(args.input_map, output_path, new_filename, args.mod_name)
+    finally:
+        # for au3 GUI post mortem
+        print()
+        os.system("pause")
