@@ -4,6 +4,14 @@ Portable Windows version of mdrenamer, with a simple GUI wrapper.
 
 ![MDRenamer Gui Screenshot](http://i.imgur.com/HW8RKHS.png)
 
+### Build
+
+Compiling yourself requires:
+-   Python 2.5+ or Python 3.1+ on your path https://www.python.org/download/
+-   cx_freeze installed for the above Python version http://cx-freeze.sourceforge.net/
+-   AutoIt3 installed, with Aut2Exe on your path http://www.autoitscr...toit/downloads/
+Just run build.bat and you're done.
+
 ### License
 
 Null's work is released under the 3-clause BSD license (see /LICENSE).
