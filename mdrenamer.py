@@ -140,13 +140,29 @@ if __name__ == '__main__':
     output_path = os.path.join(args.output_directory, new_filename + ".map")
 
     ## validate input
-    if not os.path.exists(args.input_map):  raise Exception("%s does not exist" % args.input_map)
-    if not args.input_map.endswith(".map"): raise Exception("%s is not a .map file" % args.input_map)
-    if os.path.isdir(args.input_map):       raise Exception("%s is a directory.. which is not good" % args.input_map)
-    if args.build_number <= 0:              raise Exception("Build number is too small")
-    if len(args.mod_name) > 13:             raise Exception("Mod name must be less than 13 characters")
-    if len(new_filename) > 13:              raise Exception("Map name '%s' is too long. Try shortening the short name" % new_filename)
-    if short_name.lower() != short_name:    raise Exception("Map name '%s' has capital letter. The short name must be all lowercase" % short_name)
-    if os.path.exists(output_path):         raise Exception("Map already exists at %s ..aborting for safety.." % output_path)
+    if not os.path.exists(args.input_map):
+        raise Exception("%s does not exist" % args.input_map)
+
+    elif not args.input_map.endswith(".map"):
+        raise Exception("%s is not a .map file" % args.input_map)
+
+    elif os.path.isdir(args.input_map):
+        raise Exception("%s is a directory.. which is not good" % args.input_map)
+
+    elif args.build_number <= 0:
+        raise Exception("Build number is too small")
+
+    elif len(args.mod_name) > 13:
+        raise Exception("Mod name must be less than 13 characters")
+
+    elif len(new_filename) > 13:
+        raise Exception("Map name '%s' is too long. Try shortening the short name" % new_filename)
+
+    elif short_name.lower() != short_name:
+        raise Exception("Map name '%s' has capital letter. The short name must be all lowercase" % short_name)
+
+    elif os.path.exists(output_path):
+        raise Exception("Map already exists at %s ..aborting for safety.." % output_path)
+
 
     md_rename_file(args.input_map, output_path, new_filename, args.mod_name)
