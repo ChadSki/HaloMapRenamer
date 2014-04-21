@@ -6,32 +6,41 @@
 #include <GUIConstantsEx.au3>
 #include <StaticConstants.au3>
 #include <WindowsConstants.au3>
-#Region ### START Koda GUI section ### Form=
-$Form1 = GUICreate("MdRenamer", 322, 286, 195, 167)
-$Label1 = GUICtrlCreateLabel("Input Map", 8, 8, 52, 17)
-$Label2 = GUICtrlCreateLabel("Mod Name", 8, 56, 56, 17)
-$Label3 = GUICtrlCreateLabel("Short Name", 8, 104, 60, 17)
-$Label4 = GUICtrlCreateLabel("Build Number", 8, 152, 67, 17)
-$Label5 = GUICtrlCreateLabel("Output Directory", 8, 200, 81, 17)
-$Input1 = GUICtrlCreateInput("", 96, 8, 217, 21)
-$Input2 = GUICtrlCreateInput("", 96, 56, 217, 21)
-$Input3 = GUICtrlCreateInput("", 96, 104, 217, 21)
-$Input4 = GUICtrlCreateInput("", 96, 152, 217, 21)
-$Input5 = GUICtrlCreateInput("", 96, 200, 217, 21)
-$Label6 = GUICtrlCreateLabel("eg: C:\Users\Jake\Desktop\bloodgulch.map", 96, 32, 216, 17)
-$Label7 = GUICtrlCreateLabel("eg: Best Mod", 96, 80, 66, 17)
-$Label8 = GUICtrlCreateLabel("eg: bestmod", 96, 128, 61, 17)
-$Label9 = GUICtrlCreateLabel("eg: 1", 96, 176, 27, 17)
-$Label10 = GUICtrlCreateLabel("(Optional, defaults to same directory)", 96, 224, 216, 17)
-$Button1 = GUICtrlCreateButton("Change Name", 16, 250, 289, 25)
+#Region ### START Koda GUI section ### Form=C:\Dropbox\Workbench\CodeProjects\Halo\mdrenamer\Form.kxf
+$Form = GUICreate("MDRenamer Gui v1.1", 410, 218, 569, 369)
+$InputMap = GUICtrlCreateLabel("Input Map", 8, 12, 52, 17)
+$InputMapInput = GUICtrlCreateInput("", 96, 8, 217, 21)
+$Browse1 = GUICtrlCreateButton("Browse", 320, 6, 81, 25, 0)
+$ModName = GUICtrlCreateLabel("Mod Name", 8, 44, 56, 17)
+$ModNameInput = GUICtrlCreateInput("", 96, 40, 217, 21)
+$Label1 = GUICtrlCreateLabel("eg. Best Mod", 320, 44, 67, 17)
+$ShortName = GUICtrlCreateLabel("Short Name", 8, 76, 60, 17)
+$ShortNameInput = GUICtrlCreateInput("", 96, 72, 217, 21)
+$Label2 = GUICtrlCreateLabel("eg. bestmod", 320, 76, 62, 17)
+$BuildNumber = GUICtrlCreateLabel("Build Number", 8, 108, 67, 17)
+$BuildNumberInput = GUICtrlCreateInput("", 96, 104, 217, 21)
+$Label3 = GUICtrlCreateLabel("eg. 1", 320, 108, 28, 17)
+$OutputDir = GUICtrlCreateLabel("Output Directory", 8, 140, 81, 17)
+$OutputDirInput = GUICtrlCreateInput("", 96, 136, 217, 21)
+$Browse2 = GUICtrlCreateButton("Browse", 320, 134, 81, 25, 0)
+$Label4 = GUICtrlCreateLabel("(Optional, defaults to same directory)", 96, 160, 175, 17)
+$ChangeName = GUICtrlCreateButton("Change Name", 96, 184, 217, 25, 0)
 GUISetState(@SW_SHOW)
 #EndRegion ### END Koda GUI section ###
 
 While 1
 	$nMsg = GUIGetMsg()
 	Switch $nMsg
-		Case $Button1
-			Run("mdrenamer.exe" & " " & GUICtrlRead($Input1) & " " & GUICtrlRead($Input2) & " " & GUICtrlRead($Input3) & " " & GUICtrlRead($Input4) & " " & GUICtrlRead($Input5))
+		Case $ChangeName
+			Run("mdrenamer.exe" & ' "' & GUICtrlRead($InputMapInput) & '" "' & GUICtrlRead($ModNameInput) & '" "' & GUICtrlRead($ShortNameInput) & '" "' & GUICtrlRead($BuildNumberInput) & '" "' & GUICtrlRead($OutputDirInput) & '"')
+
+		Case $Browse1
+			$ans = FileOpenDialog("Open File", @ProgramFilesDir & "\Microsoft Games\Halo\MAPS\", "Halo Mapfiles (*.map)")
+			GUICtrlSetData($InputMapInput, $ans)
+
+		Case $Browse2
+			$ans = FileSelectFolder("Open Folder", @DesktopDir & '\')
+			GUICtrlSetData($OutputDirInput, $ans)
 
 		Case $GUI_EVENT_CLOSE
 			Exit
