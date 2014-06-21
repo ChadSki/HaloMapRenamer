@@ -1,21 +1,23 @@
-# MDRenamer Gui
+# Halo Map Renamer
 
-Portable Windows version of mdrenamer, with a simple GUI wrapper.
+Windows fork of mdrenamer, with a simple GUI wrapper.
 
-![MDRenamer Gui Screenshot](http://i.imgur.com/HW8RKHS.png)
+![Halo Map Renamer Screenshot](http://i.imgur.com/HW8RKHS.png)
 
 ### Build
 
 Compiling yourself requires:
--   Python 2.5+ or Python 3.1+ on your path https://www.python.org/download/
+-   Python 2.5+ or Python 3.2+ on your path https://www.python.org/download/
 -   cx_freeze installed for the above Python version http://cx-freeze.sourceforge.net/
 -   AutoIt3 installed, with Aut2Exe on your path http://www.autoitscr...toit/downloads/
 Just run build.bat and you're done.
 
 ### License
 
-Null's work is released under the 3-clause BSD license (see /LICENSE).
-I release my modifications under the 2-clause BSD license.
+Null's work is released under the 3-clause BSD license. My
+modifications to Null's work (/renamer.py) are released under the
+3-clause BSD license. My original work is released under the 2-clause
+BSD license.
 
 ### Forums
 
