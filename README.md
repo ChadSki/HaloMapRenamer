@@ -2,8 +2,7 @@
 
 Windows fork of mdrenamer, with a simple GUI wrapper.
 
-![Halo Map Renamer Screenshot](http://i.imgur.com/HW8RKHS.png)
-
+![Halo Map Renamer Screenshot](http://i.imgur.com/7mNuEZx.png)
 ### Build
 
 Compiling yourself requires:
