@@ -79,29 +79,40 @@ if __name__ == '__main__':
     try:
         args = parser.parse_args()
 
-        if args.output_directory == None:
-            args.output_directory = os.path.dirname(args.input_map)
+        halomd_format = (args.build_number != -1)
 
-        new_filename = "%s_%d" % (args.short_name, args.build_number)
-        output_path = os.path.join(args.output_directory, new_filename + ".map")
+        if halomd_format:
+            new_filename = "%s_%d" % (args.short_name, args.build_number)
+        else:
+            print('Warning: Name not MD-compatible')
+            new_filename = args.short_name
+
+        if args.output_directory == None:
+            output_path = os.path.join(os.path.dirname(args.input_map), new_filename + ".map")
+        else:
+            output_path = os.path.join(args.output_directory, new_filename + ".map")
+
 
         if not os.path.exists(args.input_map) or not args.input_map.endswith(".map"):
             print("%s is not a .map file" % args.input_map)
 
         elif os.path.isdir(args.input_map):
-            print("%s is a directory.. which is not good" % args.input_map)
-
-        elif args.build_number <= 0:
-            print("Build number is too small")
-
-        elif len(new_filename) > 13:
-            print("Map name '%s' is too long. Try shortening the short name" % new_filename)
-
-        elif args.short_name.lower() != args.short_name:
-            print("Map name '%s' has capital letter. The short name must be all lowercase" % args.short_name)
+            print("%s is a directory, not a map" % args.input_map)
 
         elif os.path.exists(output_path):
             print("Map already exists at %s ..aborting for safety.." % output_path)
+
+        elif len(new_filename) > 31:
+            print("Map name '%s' is too long." % new_filename)
+
+        elif halomd_format and args.build_number <= 0:
+            print("Build number is too small")
+
+        elif halomd_format and len(new_filename) > 13:
+            print("Map name '%s' is too long. Try shortening the short name" % new_filename)
+
+        elif halomd_format and args.short_name.lower() != args.short_name:
+            print("Map name '%s' has capital letter. The short name must be all lowercase" % args.short_name)
 
         else:
             rename_mapfile(args.input_map, output_path, new_filename)

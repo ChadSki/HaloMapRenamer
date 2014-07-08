@@ -4,8 +4,8 @@
 		<property name="Left" vt="Int16">261</property>
 		<property name="Top" vt="Int16">224</property>
 		<property name="Width" vt="Int16">425</property>
-		<property name="Height" vt="Int16">224</property>
-		<property name="Caption" vt="String">Halo Map Renamer v1.2</property>
+		<property name="Height" vt="Int16">240</property>
+		<property name="Caption" vt="String">Halo Map Renamer v1.3</property>
 		<property name="Color" vt="Ident">clBtnFace</property>
 		<property name="Font.Charset" vt="Ident">DEFAULT_CHARSET</property>
 		<property name="Font.Color" vt="Ident">clWindowText</property>
@@ -31,7 +31,7 @@
 		<property name="TextHeight" vt="Int8">13</property>
 	</properties>
 	<components>
-		<object type="TALabel" name="InputMap">
+		<object type="TALabel" name="InputMapLabel">
 			<properties>
 				<property name="Left" vt="Int8">8</property>
 				<property name="Top" vt="Int8">12</property>
@@ -59,7 +59,7 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TAButton" name="Browse1">
+		<object type="TAButton" name="InputMapBrowse">
 			<properties>
 				<property name="Left" vt="Int16">320</property>
 				<property name="Top" vt="Int8">6</property>
@@ -74,7 +74,7 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TALabel" name="ShortName">
+		<object type="TALabel" name="ShortNameLabel">
 			<properties>
 				<property name="Left" vt="Int8">8</property>
 				<property name="Top" vt="Int8">44</property>
@@ -102,7 +102,7 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TALabel" name="Label2">
+		<object type="TALabel" name="ShortNameExample">
 			<properties>
 				<property name="Left" vt="Int16">320</property>
 				<property name="Top" vt="Int8">44</property>
@@ -117,7 +117,7 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TALabel" name="BuildNumber">
+		<object type="TALabel" name="BuildNumberLabel">
 			<properties>
 				<property name="Left" vt="Int8">8</property>
 				<property name="Top" vt="Int8">76</property>
@@ -145,7 +145,7 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TALabel" name="Label3">
+		<object type="TALabel" name="BuildNumberExample">
 			<properties>
 				<property name="Left" vt="Int16">320</property>
 				<property name="Top" vt="Int8">76</property>
@@ -160,10 +160,25 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TALabel" name="OutputDirectory">
+		<object type="TALabel" name="BuildNumberComment">
+			<properties>
+				<property name="Left" vt="Int8">96</property>
+				<property name="Top" vt="Int8">96</property>
+				<property name="Width" vt="Int16">179</property>
+				<property name="Height" vt="Int8">17</property>
+				<property name="Caption" vt="String">(Required for MD, optional otherwise)</property>
+				<property name="TabOrder" vt="Int8">14</property>
+				<property name="HaveVariable" vt="False">False</property>
+				<property name="CtrlStyle" vt="Int32">1342177536</property>
+				<property name="CtrlExStyle" vt="Int8">0</property>
+				<property name="Resizing" vt="Set"/>
+			</properties>
+			<components/>
+		</object>
+		<object type="TALabel" name="OutputDirectoryLabel">
 			<properties>
 				<property name="Left" vt="Int8">8</property>
-				<property name="Top" vt="Int8">108</property>
+				<property name="Top" vt="Int8">124</property>
 				<property name="Width" vt="Int8">81</property>
 				<property name="Height" vt="Int8">17</property>
 				<property name="Caption" vt="String">Output Directory</property>
@@ -178,7 +193,7 @@
 		<object type="TAInput" name="OutputDirInput">
 			<properties>
 				<property name="Left" vt="Int8">96</property>
-				<property name="Top" vt="Int8">104</property>
+				<property name="Top" vt="Int8">120</property>
 				<property name="Width" vt="Int16">217</property>
 				<property name="Height" vt="Int8">21</property>
 				<property name="TabOrder" vt="Int8">10</property>
@@ -188,10 +203,10 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TAButton" name="Browse2">
+		<object type="TAButton" name="OutputDirBrowse">
 			<properties>
 				<property name="Left" vt="Int16">320</property>
-				<property name="Top" vt="Int8">102</property>
+				<property name="Top" vt="Int8">118</property>
 				<property name="Width" vt="Int8">81</property>
 				<property name="Height" vt="Int8">25</property>
 				<property name="Caption" vt="String">Browse</property>
@@ -203,10 +218,10 @@
 			</properties>
 			<components/>
 		</object>
-		<object type="TALabel" name="Label4">
+		<object type="TALabel" name="OutputDirComment">
 			<properties>
 				<property name="Left" vt="Int8">96</property>
-				<property name="Top" vt="Int16">128</property>
+				<property name="Top" vt="Int16">144</property>
 				<property name="Width" vt="Int16">175</property>
 				<property name="Height" vt="Int8">17</property>
 				<property name="Caption" vt="String">(Optional, defaults to same directory)</property>
@@ -221,7 +236,7 @@
 		<object type="TAButton" name="ChangeName">
 			<properties>
 				<property name="Left" vt="Int8">96</property>
-				<property name="Top" vt="Int16">152</property>
+				<property name="Top" vt="Int16">168</property>
 				<property name="Width" vt="Int16">217</property>
 				<property name="Height" vt="Int8">25</property>
 				<property name="Caption" vt="String">Change Name</property>
