@@ -9,7 +9,8 @@ Compiling yourself requires:
 -   Python 2.5+ or Python 3.2+ on your path https://www.python.org/download/
 -   cx_freeze installed for the above Python version http://cx-freeze.sourceforge.net/
 -   AutoIt3 installed, with Aut2Exe on your path http://www.autoitscr...toit/downloads/
-Just run build.bat and you're done.
+
+Just run build.bat and you're done!
 
 ### License
 
