@@ -15,9 +15,8 @@ Just run build.bat and you're done!
 ### License
 
 Null's work is released under the 3-clause BSD license. My
-modifications to Null's work (/renamer.py) are released under the
-3-clause BSD license. My original work is released under the 2-clause
-BSD license.
+modifications to Null's work (/renamer.py) and original work are also released under the
+3-clause BSD license.
 
 ### Forums
 
